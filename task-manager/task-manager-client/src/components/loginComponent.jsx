@@ -1,51 +1,68 @@
 import styles from "../styles/login.module.css";
 import React, { useState } from "react";
-import useAPI from "../hooks/fetchHook";
-function LoginComponent(props){
-    const [userName, setUserName] = useState("");
-    const [password, setPassword] = useState("")
-    function SetmyUserName(event){
-        let value = event.target.value;
-        setUserName(value)
-    }
-    function SetUserPassword(event){
-        let value = event.target.value;
-        setPassword(value)
-    }
-    function loginApp(){
-        fetch('http://localhost:8000/user/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              userName: userName,
-              password: password
-            })
-          })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.json();
-          })
-          .then(data => {
-            console.log('Token received:', data.token);
-            localStorage.setItem('token', data.token); // Save the token for future requests
-          })
-          .catch(error => {
-            console.error('There was a problem with the fetch operation:', error);
-          });
-    }
-    return(
-        <div className={styles.loginContainer}>
-            <label>Username:</label>
-            <input placeholder="Enter Username" onChange={SetmyUserName} value={userName}></input>
-            <label>Password:</label>
-            <input placeholder="Enter Password" onChange={SetUserPassword} value={password}></input>
-            <button onClick={loginApp}>Login</button>
-            <label> New to the app? <span style={{ color: "red"}}>Sign Up</span></label>
-        </div>
-    )
+import { useDispatch } from "react-redux";
+import { setToken } from "../features/appSlice";
+
+function LoginComponent(props) {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  let dispatch = useDispatch();
+
+  function handleUserNameChange(event) {
+    setUserName(event.target.value);
+  }
+
+  function handlePasswordChange(event) {
+    setPassword(event.target.value);
+  }
+
+  function loginApp() {
+    fetch('http://localhost:8000/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        userName: userName,
+        password: password
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Token received:', data.token);
+      dispatch(setToken(data.token));
+    })
+    .catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+    });
+  }
+
+  return (
+    <div className={styles.loginContainer}>
+      <label>Username:</label>
+      <input
+        placeholder="Enter Username"
+        onChange={handleUserNameChange}
+        value={userName}
+      />
+      <label>Password:</label>
+      <input
+        type="password"
+        placeholder="Enter Password"
+        onChange={handlePasswordChange}
+        value={password}
+      />
+      <button onClick={loginApp}>Login</button>
+      <label>
+        New to the app? <span style={{ color: "red" }}>Sign Up</span>
+      </label>
+    </div>
+  );
 }
+
 export default LoginComponent;

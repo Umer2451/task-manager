@@ -3,7 +3,19 @@ const express = require('express');
 const router = express.Router()
 const Model = require("../model/model")
 const jwt = require('jsonwebtoken');
-const checkToken = require('./userRoutes')
+
+const checkToken = (req, res, next) => {
+    const header = req.headers['authorization'];
+    if (typeof header !== 'undefined') {
+        const bearer = header.split(' ');
+        const token = bearer[1];
+        req.token = token;
+        next();
+    } else {
+        res.sendStatus(403);
+    }
+};
+
 router.post('/post', checkToken, (req, res) => {
     const data = new Model({
         taskName: req.body.taskName,
@@ -18,7 +30,6 @@ router.post('/post', checkToken, (req, res) => {
         res.status(400).json({message: error.message})
     }
 })
-
 //Get all Method
 router.get('/getAll', checkToken, async (req, res) => {
     try{

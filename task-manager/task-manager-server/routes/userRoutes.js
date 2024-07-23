@@ -106,4 +106,3 @@ userrouter.delete('/delete/:id', async (req, res) => {
 });
 
 module.exports = userrouter;
-module.exports = checkToken;
