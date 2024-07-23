@@ -1,0 +1,49 @@
+/* Style for the entire login div */
+.loginDiv {
+    position: absolute;
+    display: flex;
+    width: 100%;
+    justify-content: center;    
+    top: 20%;
+    background-color: #f0f0f0; /* Light background color for contrast */
+}
+
+/* Style for the login container */
+.loginContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px; /* Increased gap for better spacing */
+    background-color: #ffffff; /* White background for a clean look */
+    padding: 40px; /* Reduced padding for a balanced appearance */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle box shadow for depth */
+    width: 100%;
+    max-width: 400px; /* Max width for better responsiveness */
+}
+
+/* Style for input fields */
+.loginContainer input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc; /* Light border for input fields */
+    border-radius: 5px;
+    font-size: 16px; /* Slightly larger font size */
+}
+
+/* Style for buttons */
+.loginContainer button {
+    padding: 10px 20px;
+    background-color: #6200ea; /* Purple button color */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.loginContainer button:hover {
+    background-color: #3700b3; /* Darker purple on hover */
+}
