@@ -68,7 +68,7 @@ router.delete('/delete/:id', checkToken, async (req, res) => {
         const data = await Model.findByIdAndDelete(id)
         res.send(`Document with ${data.name} has been deleted..`)
     }
-    catch (error) {
+    catch (error) {npms 
         res.status(400).json({ message: error.message })
     }
 })
