@@ -1,4 +1,5 @@
-import styles from "../styles/login.module.css"
+import styles from "../styles/login.module.css";
+import React from "react";
 function LoginComponent(props){
     return(
         <div className={styles.loginContainer}>

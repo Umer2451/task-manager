@@ -18,11 +18,11 @@ const dataSchema = new mongoose.Schema({
         type: String
     },
     email: {
-        required: true,
+        required: false,
         type: String
     },
     dob : {
-        required: true,
+        required: false,
         type: String
     }
 })

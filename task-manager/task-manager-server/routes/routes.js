@@ -2,8 +2,9 @@ const express = require('express');
 
 const router = express.Router()
 const Model = require("../model/model")
-
-router.post('/post', (req, res) => {
+const jwt = require('jsonwebtoken');
+const checkToken = require('./userRoutes')
+router.post('/post', checkToken, (req, res) => {
     const data = new Model({
         taskName: req.body.taskName,
         taskDescription: req.body.taskDescription,
@@ -19,7 +20,7 @@ router.post('/post', (req, res) => {
 })
 
 //Get all Method
-router.get('/getAll', async (req, res) => {
+router.get('/getAll', checkToken, async (req, res) => {
     try{
         const data = await Model.find();
         res.json(data)
@@ -31,7 +32,7 @@ router.get('/getAll', async (req, res) => {
 
 
 //Get by ID Method
-router.get('/getOne/:id', async (req, res) => {
+router.get('/getOne/:id', checkToken,  async (req, res) => {
     try{
         const data = await Model.findById(req.params.id);
         res.json(data)
@@ -44,7 +45,7 @@ router.get('/getOne/:id', async (req, res) => {
 
 //Update by ID Method
 //Update by ID Method
-router.patch('/update/:id', async (req, res) => {
+router.patch('/update/:id', checkToken, async (req, res) => {
     try {
         const id = req.params.id;
         const updatedData = req.body;
@@ -61,10 +62,7 @@ router.patch('/update/:id', async (req, res) => {
     }
 })
 
-
-//Delete by ID Method
-//Delete by ID Method
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id', checkToken, async (req, res) => {
     try {
         const id = req.params.id;
         const data = await Model.findByIdAndDelete(id)

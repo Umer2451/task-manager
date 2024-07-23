@@ -5,7 +5,6 @@ const routes = require('./routes/routes');
 const userrouter = require('./routes/userRoutes')
 const cors = require('cors');
 const app = express();
-
 // Enable CORS
 app.use(cors());
 
