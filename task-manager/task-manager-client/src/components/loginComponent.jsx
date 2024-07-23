@@ -2,12 +2,12 @@ import styles from "../styles/login.module.css";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setToken } from "../features/appSlice";
-
+import { useNavigate } from "react-router-dom";
 function LoginComponent(props) {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   let dispatch = useDispatch();
-
+  let navigate = useNavigate();
   function handleUserNameChange(event) {
     setUserName(event.target.value);
   }
@@ -34,8 +34,8 @@ function LoginComponent(props) {
       return response.json();
     })
     .then(data => {
-      console.log('Token received:', data.token);
       dispatch(setToken(data.token));
+      navigate("/taskpage")
     })
     .catch(error => {
       console.error('There was a problem with the fetch operation:', error);
