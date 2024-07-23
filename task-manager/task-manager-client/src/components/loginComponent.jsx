@@ -1,5 +1,5 @@
 import styles from "../styles/login.module.css"
-function LoginComponent(){
+function LoginComponent(props){
     return(
         <div className={styles.loginContainer}>
             <label>Username:</label>
@@ -7,6 +7,7 @@ function LoginComponent(){
             <label>Password:</label>
             <input placeholder="Enter Password"></input>
             <button>Login</button>
+            <label> New to the app? <span style={{ color: "red"}}>Sign Up</span></label>
         </div>
     )
 }
